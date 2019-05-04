@@ -4,45 +4,19 @@ namespace app\controllers;
 
 use app\models\RegistrationForm;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\tables\Task;
+use app\models\filters\TasksFilter;
 
 class SiteController extends Controller
 {
-    /**
-     * {@inheritdoc}
-     */
-    /*public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout'],
-                'rules' => [
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
-            'homeUrl'=>'task/index',
-        ];
-    }*/
 
-    /**
-     * {@inheritdoc}
-     */
     public function actions()
     {
         return [
@@ -58,7 +32,17 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+      /*$searchModel = new TasksFilter();
+      $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+      return $this->render('index', [
+        'searchModel' => $searchModel,
+        'dataProvider' => $dataProvider,
+      ]);*/
+      $dataProvider = new ActiveDataProvider([
+        'query' => Task::find()
+      ]);
+      return $this->render('index', ['dataProvider' => $dataProvider]);
     }
 
     public function actionLogin()

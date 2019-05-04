@@ -21,6 +21,7 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
   public static function findIdentity($id)
   {
     $user = Users::findOne($id)->attributes;
+
     if (!is_null($user))
       return new static($user);
 

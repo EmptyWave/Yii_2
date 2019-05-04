@@ -2,7 +2,6 @@
 
 namespace app\controllers;
 
-use app\models\Task;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -10,6 +9,8 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\tables\Task;
+use app\models\tables\Users;
 
 class TaskController extends Controller
 {
@@ -52,6 +53,21 @@ class TaskController extends Controller
 
     return $this->render('index');
 
+  }
+
+  public function actionView(){
+    $request = Yii::$app->request;
+    if ($request->isGet){
+      $get = $request->get('id');
+      $model = Task::findOne(['id' => $get]);
+      //$taskData['creatorName'] = Users::findOne(['id' => $taskData['creator_id']])->username;
+      //$taskData['responsibleName'] = Users::findOne(['id' => $taskData['responsible_id']])->username;
+
+      return $this->render('view', [
+        'model' => $model,
+      ]);
+    }
+    return $this->goHome();
   }
   public function actionEdit(){
 
