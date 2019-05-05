@@ -3,6 +3,8 @@
 namespace app\models\tables;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "task".
@@ -14,6 +16,10 @@ use Yii;
  * @property int $responsible_id
  * @property string $deadline
  * @property int $status_id
+ * @property string $created
+ * @property string $modified
+ *
+ * @property TaskStatuses $status
  */
 class Task extends \yii\db\ActiveRecord
 {
@@ -33,8 +39,9 @@ class Task extends \yii\db\ActiveRecord
     return [
       [['name', 'description'], 'required'],
       [['creator_id', 'responsible_id', 'status_id'], 'integer'],
-      [['deadline'], 'safe'],
+      [['deadline', 'created', 'modified'], 'safe'],
       [['name', 'description'], 'string', 'max' => 255],
+      [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => TaskStatuses::className(), 'targetAttribute' => ['status_id' => 'id']],
     ];
   }
 
@@ -51,7 +58,17 @@ class Task extends \yii\db\ActiveRecord
       'responsible_id' => 'Responsible ID',
       'deadline' => 'Deadline',
       'status_id' => 'Status ID',
+      'created' => 'Created',
+      'modified' => 'Modified',
     ];
+  }
+
+  /**
+   * @return \yii\db\ActiveQuery
+   */
+  public function getStatus()
+  {
+    return $this->hasOne(TaskStatuses::className(), ['id' => 'status_id']);
   }
 
   public function getCreator()
@@ -62,5 +79,17 @@ class Task extends \yii\db\ActiveRecord
   public function getResponsible()
   {
     return $this->hasOne(Users::class, ['id' => 'responsible_id']);
+  }
+
+  public function behaviors()
+  {
+    return [
+      [
+        'class' => TimestampBehavior::className(),
+        'createdAtAttribute' => 'created',
+        'updatedAtAttribute' => 'modified',
+        'value' => new Expression('CURRENT_TIMESTAMP'),
+      ],
+    ];
   }
 }

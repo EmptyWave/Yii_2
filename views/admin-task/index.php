@@ -33,6 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'responsible_id',
             //'deadline',
             //'status_id',
+            //'created',
+            //'modified',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

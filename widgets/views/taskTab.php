@@ -5,11 +5,12 @@ use yii\widgets\DetailView;
 use app\models\tables\Users;
 ?>
 
-<div class="task_view">
-  <? if ($link){?><a href="<?=Url::to(['task/view', 'id' => $model->id])?>" class="task_view__link"><?}?>
+<a href="<?=Url::to(['task/view', 'id' => $model->id])?>"
+   class="task_view__link <?= $link?'':'disabled' ?>">
+  <div class="task_view <?=$link?'task_view__hover':''?>">
     <div class="task_view__row">
       <h4><?= $model->name?></h4>
-      <p><?= 'Status: '.$model->status_id?></p>
+      <p><?= 'Status: '.$model->status->title?></p>
     </div>
     <div class="task_view__row">
       <div class="task_view__party">
@@ -19,5 +20,5 @@ use app\models\tables\Users;
       <p><?= 'Deadline: '.$model->deadline?></p>
     </div>
     <p><?= 'Description: '.$model->description?></p>
-  </a>
-</div>
+  </div>
+</a>
