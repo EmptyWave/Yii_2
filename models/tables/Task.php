@@ -17,40 +17,50 @@ use Yii;
  */
 class Task extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'task';
-    }
+  /**
+   * {@inheritdoc}
+   */
+  public static function tableName()
+  {
+    return 'task';
+  }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            [['name', 'description'], 'required'],
-            [['creator_id', 'responsible_id', 'status_id'], 'integer'],
-            [['deadline'], 'safe'],
-            [['name', 'description'], 'string', 'max' => 255],
-        ];
-    }
+  /**
+   * {@inheritdoc}
+   */
+  public function rules()
+  {
+    return [
+      [['name', 'description'], 'required'],
+      [['creator_id', 'responsible_id', 'status_id'], 'integer'],
+      [['deadline'], 'safe'],
+      [['name', 'description'], 'string', 'max' => 255],
+    ];
+  }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'name' => 'Name',
-            'description' => 'Description',
-            'creator_id' => 'Creator ID',
-            'responsible_id' => 'Responsible ID',
-            'deadline' => 'Deadline',
-            'status_id' => 'Status ID',
-        ];
-    }
+  /**
+   * {@inheritdoc}
+   */
+  public function attributeLabels()
+  {
+    return [
+      'id' => 'ID',
+      'name' => 'Name',
+      'description' => 'Description',
+      'creator_id' => 'Creator ID',
+      'responsible_id' => 'Responsible ID',
+      'deadline' => 'Deadline',
+      'status_id' => 'Status ID',
+    ];
+  }
+
+  public function getCreator()
+  {
+    return $this->hasOne(Users::class, ['id' => 'creator_id']);
+  }
+
+  public function getResponsible()
+  {
+    return $this->hasOne(Users::class, ['id' => 'responsible_id']);
+  }
 }

@@ -95,6 +95,27 @@ a.desc:after {
     padding: 15px;
     border: none;
 }
+.task-container{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+.task_view{
+    width: 40%;
+    padding: 5px;
+    margin-bottom: 5px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+}
+.task_view__row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.task_view__link{
+    text-decoration: none;
+    color: #000;
+}
 
 @media(max-width:767px) {
     .nav li > form > button.logout {

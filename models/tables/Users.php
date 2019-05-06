@@ -57,4 +57,11 @@ class Users extends \yii\db\ActiveRecord
             'userType_id' => 'User Type ID',
         ];
     }
+
+    public static function getUsersList(){
+      return static::find()
+        ->select(['username'])
+        ->indexBy('id')
+        ->column();
+    }
 }
