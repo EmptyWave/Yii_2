@@ -13,6 +13,7 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\tables\Task;
 use app\models\filters\TasksFilter;
+use yii\helpers\ArrayHelper;
 
 class SiteController extends Controller
 {
@@ -32,10 +33,35 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-      $dataProvider = new ActiveDataProvider([
+        $searchModel = new TasksFilter();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $monthList = Task::getCreateMonthList();
+        $newMonthList[] = NULL;
+        /*$newMonthList = array_map(
+            function ($date){
+                return date('m Y', strtotime($date));
+                },
+            $monthList
+        );*/
+        foreach ($monthList as $key => $date){
+            $monthNum = date('m', strtotime($date));
+            $yearNum = date('Y', strtotime($date));
+            $monthName = date('F', mktime(0, 0, 0, $monthNum, 10));
+            $newDate = $monthName.' '.$yearNum;
+            if (!in_array($newDate,$newMonthList)){
+                $newKey = $yearNum.'-'.$monthNum.'[\d\W]*';
+                $newMonthList[$newKey] = $newDate;
+            }
+        }
+      /*$dataProvider = new ActiveDataProvider([
         'query' => Task::find()
+      ]);*/
+      return $this->render('index', [
+          'searchModel' => $searchModel,
+          'dataProvider' => $dataProvider,
+          'monthList' => $newMonthList,
       ]);
-      return $this->render('index', ['dataProvider' => $dataProvider]);
     }
 
     public function actionLogin()

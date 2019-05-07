@@ -81,6 +81,13 @@ class Task extends \yii\db\ActiveRecord
     return $this->hasOne(Users::class, ['id' => 'responsible_id']);
   }
 
+    public static function getCreateMonthList(){
+        return static::find()
+            ->select(['created'])
+            ->indexBy('created')
+            ->column();
+    }
+
   public function behaviors()
   {
     return [

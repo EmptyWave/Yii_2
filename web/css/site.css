@@ -172,6 +172,8 @@ a.desc:after {
     flex-wrap: wrap;
 }
 
+.task-search{}
+
 @media(max-width:767px) {
     .nav li > form > button.logout {
         display:block;

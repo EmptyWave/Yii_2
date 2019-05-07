@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Task', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php //echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -31,10 +31,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'description',
             'creator_id',
             'responsible_id',
-            //'deadline',
-            //'status_id',
-            //'created',
-            //'modified',
+            'deadline',
+            'status_id',
+            'created',
+            'modified',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

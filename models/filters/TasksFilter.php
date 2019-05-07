@@ -68,7 +68,8 @@ class TasksFilter extends Task
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'description', $this->description]);
+            ->andFilterWhere(['like', 'description', $this->description])
+            ->orFilterWhere(['REGEXP', 'created', $this->created]);
 
         return $dataProvider;
     }

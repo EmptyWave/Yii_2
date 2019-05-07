@@ -92,14 +92,12 @@ class TaskController extends Controller
     });
 
     if ($model->load(Yii::$app->request->post()) && $model->save()) {
-      //$this->trigger(Task::EVENT_NEW_TASK);
       return $this->redirect(['view', 'id' => $model->id]);
     }
 
     $usersList = Users::getUsersList();
     $statusList = TaskStatuses::getStatusList();
 
-    //$this->trigger();
 
     return $this->render('create', [
       'model' => $model,
