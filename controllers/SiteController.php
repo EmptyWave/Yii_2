@@ -5,7 +5,7 @@ namespace app\controllers;
 use app\models\RegistrationForm;
 use Yii;
 use yii\data\ActiveDataProvider;
-use yii\filters\AccessControl;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
@@ -37,31 +37,12 @@ class SiteController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         $monthList = Task::getCreateMonthList();
-        $newMonthList[] = NULL;
-        /*$newMonthList = array_map(
-            function ($date){
-                return date('m Y', strtotime($date));
-                },
-            $monthList
-        );*/
-        foreach ($monthList as $key => $date){
-            $monthNum = date('m', strtotime($date));
-            $yearNum = date('Y', strtotime($date));
-            $monthName = date('F', mktime(0, 0, 0, $monthNum, 10));
-            $newDate = $monthName.' '.$yearNum;
-            if (!in_array($newDate,$newMonthList)){
-                $newKey = $yearNum.'-'.$monthNum.'[\d\W]*';
-                $newMonthList[$newKey] = $newDate;
-            }
-        }
-      /*$dataProvider = new ActiveDataProvider([
-        'query' => Task::find()
-      ]);*/
-      return $this->render('index', [
-          'searchModel' => $searchModel,
-          'dataProvider' => $dataProvider,
-          'monthList' => $newMonthList,
-      ]);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'monthList' => $monthList,
+        ]);
     }
 
     public function actionLogin()
@@ -81,13 +62,22 @@ class SiteController extends Controller
         ]);
     }
 
-  public function actionRegistration()
-  {
-    $model = new RegistrationForm();
-    return $this->render('registration', [
-      'model' => $model,
-    ]);
-  }
+    public function actionRegistration()
+    {
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
+        $model = new RegistrationForm();
+        $newData = Yii::$app->request->post();
+        if ($model->load($newData) && $model->registration($newData)) {
+            return $this->redirect(Url::to(['site/login']));
+        }
+
+        return $this->render('registration', [
+            'model' => $model,
+        ]);
+    }
 
     public function actionLogout()
     {

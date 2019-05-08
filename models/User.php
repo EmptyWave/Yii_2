@@ -76,9 +76,6 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
     return $this->passwordHash;
   }
 
-  public function setPasswordHash($password){
-    $this->passwordHash = \Yii::$app->getSecurity()->generatePasswordHash($password);
-  }
 
   /**
    * {@inheritdoc}
@@ -98,4 +95,24 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
   public function validatePassword($password){
     return \Yii::$app->getSecurity()->validatePassword($password, $this->passwordHash);
   }
+    public function getPasswordHash($password){
+        return \Yii::$app->getSecurity()->generatePasswordHash($password);
+    }
+
+  public function registration($userData){
+      $newUserData = [];
+      $newUserData['Users']['username'] = $userData['RegistrationForm']['username'];
+      $newUserData['Users']['passwordHash'] = $this->getPasswordHash($userData['RegistrationForm']['password']);
+      $newUserData['Users']['authKey'] = '1';
+      $newUserData['Users']['accessToken'] = '1';
+      $newUserData['Users']['email'] = $userData['RegistrationForm']['email'];
+      $newUserData['Users']['phone'] = $userData['RegistrationForm']['phone'];
+      $newUserData['Users']['userType_id'] = 1;
+
+      $model = new users();
+      $model->load($newUserData);
+      return $model->save();
+
+  }
+
 }

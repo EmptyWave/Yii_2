@@ -20,5 +20,9 @@ use app\models\tables\Users;
       <p><?= 'Deadline: '.$model->deadline?></p>
     </div>
     <p><?= 'Description: '.$model->description?></p>
+      <div class="task_view__row">
+          <p><?= 'Created: '.$model->createdDate?></p>
+          <p><?= 'Modified: '.$model->modified?></p>
+      </div>
   </div>
 </a>
