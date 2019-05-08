@@ -31,7 +31,7 @@ use yii\widgets\ActiveForm;
     </div>
   </div>
 
-  <?= $form->field($model, 'description')->textarea(['rows' => '6', 'maxlength' => true]) ?>
+  <?= $form->field($model, 'description')->textarea(['rows' => '6', 'maxlength' => false]) ?>
 
   <div class="form-group">
     <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

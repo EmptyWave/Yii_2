@@ -40,7 +40,8 @@ class Task extends \yii\db\ActiveRecord
             [['name', 'description'], 'required'],
             [['creator_id', 'responsible_id', 'status_id'], 'integer'],
             [['deadline', 'created', 'modified'], 'safe'],
-            [['name', 'description'], 'string', 'max' => 255],
+            [['name'], 'string', 'max' => 50],
+            [['description'], 'string'],
             [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => TaskStatuses::className(), 'targetAttribute' => ['status_id' => 'id']],
         ];
     }
@@ -83,12 +84,12 @@ class Task extends \yii\db\ActiveRecord
 
     public function getCreatedDate()
     {
-        return  date('d m Y', strtotime($this->created));
+        return  date('d-m-Y', strtotime($this->created));
     }
 
     public function getModifiedDate()
     {
-        return  date('d m Y', strtotime($this->modified));
+        return  date('d-m-Y', strtotime($this->modified));
     }
 
     public static function getCreateMonthList()

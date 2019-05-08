@@ -10,7 +10,7 @@ use yii\helpers\Html;
 ]); ?>
 
   <div class="task-btn-box">
-    <?= Yii::$app->user->isGuest ? '' : Html::a('Update', ['edit', 'id' => $model->id], [
+    <?= Yii::$app->user->isGuest ? '' : Html::a('Edit', ['edit', 'id' => $model->id], [
         'class' => 'btn btn-primary task-btn'
     ]) ?>
     <?= Yii::$app->user->isGuest ? '' : Html::a('Delete', ['delete', 'id' => $model->id], [
