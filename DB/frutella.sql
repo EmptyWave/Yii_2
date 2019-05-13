@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Май 06 2019 г., 00:09
+-- Время создания: Май 14 2019 г., 00:11
 -- Версия сервера: 5.6.41
 -- Версия PHP: 7.2.10
 
@@ -52,8 +52,8 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 
 CREATE TABLE `task` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `description` varchar(255) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `description` text NOT NULL,
   `creator_id` int(11) DEFAULT NULL,
   `responsible_id` int(11) DEFAULT NULL,
   `deadline` date DEFAULT NULL,
@@ -67,17 +67,17 @@ CREATE TABLE `task` (
 --
 
 INSERT INTO `task` (`id`, `name`, `description`, `creator_id`, `responsible_id`, `deadline`, `status_id`, `created`, `modified`) VALUES
-(1, 'Знакомство с фреймворком', 'Знакомство с фреймворком', 1, 2, NULL, 1, '2019-05-05 17:36:59', NULL),
-(2, 'Изучение ORM', 'Изучение ORM', 1, 2, NULL, 1, '2019-05-05 17:36:59', NULL),
-(3, 'Постичь непостижимое', 'Таск 4', 1, 2, NULL, 1, '2019-05-05 17:36:59', NULL),
-(5, 'Test task 2', 'Test task 2', 1, 2, '2019-05-31', 1, '2019-05-05 17:36:59', NULL),
-(6, 'Test task 3', 'Test task 3', 1, 1, '2019-05-31', 1, '2019-05-05 17:36:59', NULL),
-(8, 'Test task 4', '12344', 1, 1, '2019-05-05', 1, '2019-05-05 17:36:59', NULL),
-(16, 'Test task 5', 'Test task 5', 1, 1, '2019-05-05', 1, '2019-05-05 17:36:59', NULL),
+(1, 'Знакомство с фреймворком', 'Знакомство с фреймворком', 1, 2, NULL, 1, '2019-04-05 17:36:59', '2019-05-07 09:05:36'),
+(2, 'Изучение ORM', 'Изучение ORM', 1, 2, NULL, 1, '2019-05-03 17:36:59', '2019-05-07 09:05:49'),
+(3, 'Постичь непостижимое', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eros ipsum, tristique lobortis elementum vel, commodo a magna. In pharetra venenatis ex quis pellentesque. Proin vehicula elementum sapien, et semper elit tempus eu. Sed laoreet orci suscipit velit efficitur, malesuada accumsan felis bibendum. Morbi cursus iaculis lacus et aliquet. Nulla elit magna, mollis vel ipsum et, molestie elementum urna. Praesent enim quam, tincidunt in purus non, maximus sagittis neque. In id ligula nunc. Nullam mollis egestas imperdiet. Vivamus tempus erat id massa consequat porttitor. Fusce id ullamcorper nulla, a sodales odio. Etiam est risus, tempus sed lobortis non, dignissim at nunc. Cras quis sollicitudin lacus.', 1, 2, '2019-06-02', 1, '2019-03-05 17:36:59', '2019-05-08 21:39:59'),
+(5, 'Test task 2 (Lorem5)', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eros ipsum, tristique lobortis elementum vel, commodo a magna. In pharetra venenatis ex quis pellentesque. Proin vehicula elementum sapien, et semper elit tempus eu. Sed laoreet orci suscipit velit efficitur, malesuada accumsan felis bibendum. Morbi cursus iaculis lacus et aliquet. Nulla elit magna, mollis vel ipsum et, molestie elementum urna. Praesent enim quam, tincidunt in purus non, maximus sagittis neque. In id ligula nunc. Nullam mollis egestas imperdiet. Vivamus tempus erat id massa consequat porttitor. Fusce id ullamcorper nulla, a sodales odio. Etiam est risus, tempus sed lobortis non, dignissim at nunc. Cras quis sollicitudin lacus.\r\n\r\nDonec sed porta risus. Sed eget venenatis ex. Ut ornare massa et ante feugiat, sit amet porttitor tellus finibus. Nam sed tristique mi. Nullam a urna magna. Fusce condimentum luctus suscipit. Nam consequat nunc sit amet dui hendrerit dictum. Cras laoreet felis ac erat malesuada, id pellentesque ex mollis.\r\n\r\nDuis quis ligula et enim scelerisque imperdiet. Sed imperdiet pretium lorem nec luctus. Duis aliquet feugiat fermentum. Praesent ullamcorper ut urna vel fermentum. Nulla rhoncus nisl sed maximus faucibus. Mauris felis est, mollis at leo suscipit, lacinia convallis metus. Donec non dui a mi ultrices maximus at id justo. Ut ut leo vel nisi pellentesque lobortis. Aenean rhoncus est id tempor pellentesque.\r\n\r\nAenean tincidunt, turpis et dignissim venenatis, turpis nisl tempor nunc, quis tincidunt libero massa ac velit. Ut dignissim neque id aliquam convallis. Integer sit amet faucibus lacus, eu egestas eros. Morbi interdum turpis eu turpis vulputate, eget dapibus nulla auctor. Nunc elementum libero elit, eget vehicula ligula placerat sed. Aliquam ultricies a quam vitae feugiat. Suspendisse et accumsan lorem, nec finibus ligula. Nam eget consectetur massa. Sed iaculis venenatis neque, id dapibus nibh rhoncus et. Donec pellentesque, odio quis volutpat dapibus, urna sem eleifend neque, vitae venenatis augue urna vel eros. Donec sed neque augue. In erat lectus, bibendum in euismod quis, cursus eu diam. Curabitur dictum iaculis porta. Suspendisse lobortis ullamcorper risus eget fringilla. Nunc dui orci, iaculis nec lorem at, pretium imperdiet ante. In commodo faucibus felis eget tempor.\r\n\r\nPellentesque sed aliquet quam. Suspendisse laoreet mauris vitae ipsum egestas vestibulum. Nullam eget sodales ipsum, eget tincidunt ipsum. Aenean sed lacus laoreet, porttitor libero vitae, dignissim urna. Maecenas ultrices ipsum libero, non lacinia elit auctor et. Sed in finibus sapien, vitae pretium turpis. Duis sed fermentum nunc, vitae scelerisque lectus.', 1, 2, '2019-05-31', 1, '2019-03-05 17:36:59', '2019-05-08 21:40:51'),
+(6, 'Test task 3', 'Test task 3', 1, 1, '2019-03-31', 1, '2019-05-05 17:36:59', '2019-05-07 21:45:13'),
+(8, 'Test task 4', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla luctus turpis non purus vestibulum, porta consequat erat dictum. Sed euismod massa non augue congue commodo. Praesent euismod, magna a consequat egestas, dolor elit laoreet urna, et tristique ', 1, 1, '2019-05-05', 1, '2019-05-05 17:36:59', '2019-05-08 20:59:26'),
+(16, 'Test task 5', 'Test task 5', 1, 1, '2019-05-05', 1, '2019-03-05 17:36:59', '2019-05-07 21:53:14'),
 (18, 'Test task 6', 'Test task 6', 1, 2, '2019-05-25', 1, '2019-05-05 17:36:59', NULL),
 (21, 'Test task 7', 'Test task 7', 1, 2, '2019-05-05', 1, '2019-05-05 17:36:59', NULL),
 (22, 'Test task 8', 'Test task 8', 1, 2, '2019-05-31', 1, '2019-05-05 17:36:59', NULL),
-(23, 'Test task 9', 'Test task 9', 1, 2, '2019-05-05', 1, '0000-00-00 00:00:00', '2019-05-05 18:02:35');
+(23, 'Test task 9', 'Test task 9', 1, 2, '2019-05-05', 1, '2019-04-05 18:02:35', '2019-05-07 09:06:21');
 
 -- --------------------------------------------------------
 
