@@ -66,9 +66,15 @@ class AdminUsersController extends Controller
     {
         $model = new users();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $post = Yii::$app->request->post();
+        if (isset($post)){
+            $model->load(Yii::$app->request->post());
+            $model->save();
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
+
 
         return $this->render('create', [
             'model' => $model,

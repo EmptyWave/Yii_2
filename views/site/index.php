@@ -2,8 +2,13 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'TaskManager++';
+$this->title = 'Task+';
 ?>
+
+<?= $this->render('forms\_search',[
+    'model' => $searchModel,
+    'monthList' => $monthList,
+])?>
 
 <?= yii\widgets\ListView::widget([
   'dataProvider' => $dataProvider,

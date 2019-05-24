@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'name',
-            'description',
+            'description:ntext',
             'creator_id',
             'responsible_id',
             //'deadline',

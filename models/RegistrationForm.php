@@ -10,6 +10,7 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
+use app\models\tables\users;
 
 class RegistrationForm extends Model
 {
@@ -18,27 +19,51 @@ class RegistrationForm extends Model
   public $email;
   public $phone;
 
+    private $_user = false;
+
   public function rules()
   {
     return [
       [['username', 'password', 'email', 'phone'], 'required'],
-      ['password', 'validatePassword'],
-      ['email', 'validateEmail'],
-      ['phone', 'validatePhone'],
+      ['username', 'validateUserName'],
+      ['password', 'string','min' => 8],
+      ['email', 'email'],
+      ['phone', 'number','min' => 11],
     ];
   }
 
-  public function validatePassword($attribute, $params)
-  {
+    public function validateUserName($attribute, $params)
+    {
+        if (!$this->hasErrors()) {
+            $user = $this->getUser();
 
-  }
-  public function validateEmail($attribute, $params)
-  {
+            if ($user) {
+                $this->addError($attribute, 'This username already exists');
+            }
+        }
+    }
 
-  }
   public function validatePhone($attribute, $params)
   {
 
   }
+
+  public function registration($userData){
+      if ($this->validate()) {
+          $model = new User();
+          return $model->registration($userData);
+      }
+      return false;
+
+  }
+
+    public function getUser()
+    {
+        if ($this->_user === false) {
+            $this->_user = User::findByUsername($this->username);
+            return $this->_user;
+        }
+        return false;
+    }
 
 }

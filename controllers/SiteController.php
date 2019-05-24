@@ -5,7 +5,7 @@ namespace app\controllers;
 use app\models\RegistrationForm;
 use Yii;
 use yii\data\ActiveDataProvider;
-use yii\filters\AccessControl;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
@@ -13,6 +13,7 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\tables\Task;
 use app\models\filters\TasksFilter;
+use yii\helpers\ArrayHelper;
 
 class SiteController extends Controller
 {
@@ -32,10 +33,16 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-      $dataProvider = new ActiveDataProvider([
-        'query' => Task::find()
-      ]);
-      return $this->render('index', ['dataProvider' => $dataProvider]);
+        $searchModel = new TasksFilter();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $monthList = Task::getCreateMonthList();
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'monthList' => $monthList,
+        ]);
     }
 
     public function actionLogin()
@@ -55,13 +62,22 @@ class SiteController extends Controller
         ]);
     }
 
-  public function actionRegistration()
-  {
-    $model = new RegistrationForm();
-    return $this->render('registration', [
-      'model' => $model,
-    ]);
-  }
+    public function actionRegistration()
+    {
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
+        $model = new RegistrationForm();
+        $newData = Yii::$app->request->post();
+        if ($model->load($newData) && $model->registration($newData)) {
+            return $this->redirect(Url::to(['site/login']));
+        }
+
+        return $this->render('registration', [
+            'model' => $model,
+        ]);
+    }
 
     public function actionLogout()
     {
