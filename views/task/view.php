@@ -1,18 +1,24 @@
-<!--<div class="task_view__row">
-  <h3><?/*= $taskData['name'] */?></h3>
-  <p><?/*= $taskData['status_id']*/?></p>
-</div>
-<div class="task_view__row">
-  <div class="task_view__party">
-    <p><?/*= 'Creator:'.$taskData['creatorName']*/?></p>
-    <p><?/*= 'Responsible:'.$taskData['responsibleName']*/?></p>
-  </div>
-  <p><?/*= 'Deadline:'.$taskData['deadline']*/?></p>
-</div>
-<p><?/*= 'Description:'.$taskData['description']*/?></p>
--->
+<?php
+use yii\helpers\Html;
+?>
+
+<div class="task-container">
 
 <?= \app\widgets\TaskView::widget([
   'model' => $model,
   'link' => false,
 ]); ?>
+
+  <div class="task-btn-box">
+    <?= Yii::$app->user->isGuest ? '' : Html::a('Update', ['edit', 'id' => $model->id], [
+        'class' => 'btn btn-primary task-btn'
+    ]) ?>
+    <?= Yii::$app->user->isGuest ? '' : Html::a('Delete', ['delete', 'id' => $model->id], [
+      'class' => 'btn btn-danger task-btn',
+      'data' => [
+        'confirm' => 'Are you sure you want to delete this item?',
+        'method' => 'post',
+      ],
+    ]) ?>
+  </div>
+</div>

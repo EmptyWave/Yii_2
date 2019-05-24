@@ -10,28 +10,28 @@ use yii\widgets\ActiveForm;
 
 <div class="task-form">
 
-  <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(); ?>
 
-  <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-  <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 
-  <?= $form->field($model, 'creator_id')->dropDownList(
-    $usersList
-  ) ?>
+    <?= $form->field($model, 'creator_id')->textInput() ?>
 
-  <?= $form->field($model, 'responsible_id')->dropDownList(
-    $usersList
-  ) ?>
+    <?= $form->field($model, 'responsible_id')->textInput() ?>
 
-  <?= $form->field($model, 'deadline')->textInput(['type' => 'date']) ?>
+    <?= $form->field($model, 'deadline')->textInput() ?>
 
-  <?= $form->field($model, 'status_id')->textInput() ?>
+    <?= $form->field($model, 'status_id')->textInput() ?>
 
-  <div class="form-group">
-    <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-  </div>
+    <?= $form->field($model, 'created')->textInput() ?>
 
-  <?php ActiveForm::end(); ?>
+    <?= $form->field($model, 'modified')->textInput() ?>
+
+    <div class="form-group">
+        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
 
 </div>

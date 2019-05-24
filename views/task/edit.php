@@ -1,10 +1,20 @@
 <?php
+
 use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
 
-$this->title = $title;
-$this->params['breadcrumbs']['homeLink'] = ['label' => 'Tasks', 'url' => '?r=task%2Findex'];
-$this->params['breadcrumbs'][] = $this->title;
+/* @var $this yii\web\View */
+/* @var $model app\models\tables\Task */
 
+$this->title = 'Edit Task: ' . $model->name;
+$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = 'Edit';
 ?>
-<h3>А тут редактор тасков</h3>
+<div class="task-update">
+
+  <?= $this->render('forms\_form', [
+    'model' => $model,
+    'usersList' => $usersList,
+    'statusList' => $statusList,
+  ]) ?>
+
+</div>

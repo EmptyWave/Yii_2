@@ -2,9 +2,9 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Task Manager+';
+$this->title = 'TaskManager++';
 ?>
-<div class="container">
+
 <?= yii\widgets\ListView::widget([
   'dataProvider' => $dataProvider,
   'options' => [
@@ -24,5 +24,5 @@ $this->title = 'Task Manager+';
   ]
 ]);
 ?>
-</div>
+
 
