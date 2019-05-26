@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Май 26 2019 г., 19:32
+-- Время создания: Май 14 2019 г., 00:11
 -- Версия сервера: 5.6.41
 -- Версия PHP: 7.2.10
 
@@ -42,9 +42,7 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 ('m190420_193433_create_task_table', 1555792972),
 ('m190420_193531_create_users_table', 1555792973),
 ('m190505_162434_create_task_statuses_table', 1557077819),
-('m190505_165135_add_column_to_task_table', 1557077820),
-('m190524_190530_create_task_comments_table', 1558727056),
-('m190524_194023_create_task_attachments_table', 1558727057);
+('m190505_165135_add_column_to_task_table', 1557077820);
 
 -- --------------------------------------------------------
 
@@ -70,7 +68,7 @@ CREATE TABLE `task` (
 
 INSERT INTO `task` (`id`, `name`, `description`, `creator_id`, `responsible_id`, `deadline`, `status_id`, `created`, `modified`) VALUES
 (1, 'Знакомство с фреймворком', 'Знакомство с фреймворком', 1, 2, NULL, 1, '2019-04-05 17:36:59', '2019-05-07 09:05:36'),
-(2, 'Изучение ORM', 'Изучение ORM', 1, 2, NULL, 1, '2019-05-03 17:36:59', '2019-05-24 16:07:22'),
+(2, 'Изучение ORM', 'Изучение ORM', 1, 2, NULL, 1, '2019-05-03 17:36:59', '2019-05-07 09:05:49'),
 (3, 'Постичь непостижимое', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eros ipsum, tristique lobortis elementum vel, commodo a magna. In pharetra venenatis ex quis pellentesque. Proin vehicula elementum sapien, et semper elit tempus eu. Sed laoreet orci suscipit velit efficitur, malesuada accumsan felis bibendum. Morbi cursus iaculis lacus et aliquet. Nulla elit magna, mollis vel ipsum et, molestie elementum urna. Praesent enim quam, tincidunt in purus non, maximus sagittis neque. In id ligula nunc. Nullam mollis egestas imperdiet. Vivamus tempus erat id massa consequat porttitor. Fusce id ullamcorper nulla, a sodales odio. Etiam est risus, tempus sed lobortis non, dignissim at nunc. Cras quis sollicitudin lacus.', 1, 2, '2019-06-02', 1, '2019-03-05 17:36:59', '2019-05-08 21:39:59'),
 (5, 'Test task 2 (Lorem5)', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eros ipsum, tristique lobortis elementum vel, commodo a magna. In pharetra venenatis ex quis pellentesque. Proin vehicula elementum sapien, et semper elit tempus eu. Sed laoreet orci suscipit velit efficitur, malesuada accumsan felis bibendum. Morbi cursus iaculis lacus et aliquet. Nulla elit magna, mollis vel ipsum et, molestie elementum urna. Praesent enim quam, tincidunt in purus non, maximus sagittis neque. In id ligula nunc. Nullam mollis egestas imperdiet. Vivamus tempus erat id massa consequat porttitor. Fusce id ullamcorper nulla, a sodales odio. Etiam est risus, tempus sed lobortis non, dignissim at nunc. Cras quis sollicitudin lacus.\r\n\r\nDonec sed porta risus. Sed eget venenatis ex. Ut ornare massa et ante feugiat, sit amet porttitor tellus finibus. Nam sed tristique mi. Nullam a urna magna. Fusce condimentum luctus suscipit. Nam consequat nunc sit amet dui hendrerit dictum. Cras laoreet felis ac erat malesuada, id pellentesque ex mollis.\r\n\r\nDuis quis ligula et enim scelerisque imperdiet. Sed imperdiet pretium lorem nec luctus. Duis aliquet feugiat fermentum. Praesent ullamcorper ut urna vel fermentum. Nulla rhoncus nisl sed maximus faucibus. Mauris felis est, mollis at leo suscipit, lacinia convallis metus. Donec non dui a mi ultrices maximus at id justo. Ut ut leo vel nisi pellentesque lobortis. Aenean rhoncus est id tempor pellentesque.\r\n\r\nAenean tincidunt, turpis et dignissim venenatis, turpis nisl tempor nunc, quis tincidunt libero massa ac velit. Ut dignissim neque id aliquam convallis. Integer sit amet faucibus lacus, eu egestas eros. Morbi interdum turpis eu turpis vulputate, eget dapibus nulla auctor. Nunc elementum libero elit, eget vehicula ligula placerat sed. Aliquam ultricies a quam vitae feugiat. Suspendisse et accumsan lorem, nec finibus ligula. Nam eget consectetur massa. Sed iaculis venenatis neque, id dapibus nibh rhoncus et. Donec pellentesque, odio quis volutpat dapibus, urna sem eleifend neque, vitae venenatis augue urna vel eros. Donec sed neque augue. In erat lectus, bibendum in euismod quis, cursus eu diam. Curabitur dictum iaculis porta. Suspendisse lobortis ullamcorper risus eget fringilla. Nunc dui orci, iaculis nec lorem at, pretium imperdiet ante. In commodo faucibus felis eget tempor.\r\n\r\nPellentesque sed aliquet quam. Suspendisse laoreet mauris vitae ipsum egestas vestibulum. Nullam eget sodales ipsum, eget tincidunt ipsum. Aenean sed lacus laoreet, porttitor libero vitae, dignissim urna. Maecenas ultrices ipsum libero, non lacinia elit auctor et. Sed in finibus sapien, vitae pretium turpis. Duis sed fermentum nunc, vitae scelerisque lectus.', 1, 2, '2019-05-31', 1, '2019-03-05 17:36:59', '2019-05-08 21:40:51'),
 (6, 'Test task 3', 'Test task 3', 1, 1, '2019-03-31', 1, '2019-05-05 17:36:59', '2019-05-07 21:45:13'),
@@ -80,50 +78,6 @@ INSERT INTO `task` (`id`, `name`, `description`, `creator_id`, `responsible_id`,
 (21, 'Test task 7', 'Test task 7', 1, 2, '2019-05-05', 1, '2019-05-05 17:36:59', NULL),
 (22, 'Test task 8', 'Test task 8', 1, 2, '2019-05-31', 1, '2019-05-05 17:36:59', NULL),
 (23, 'Test task 9', 'Test task 9', 1, 2, '2019-05-05', 1, '2019-04-05 18:02:35', '2019-05-07 09:06:21');
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `task_attachments`
---
-
-CREATE TABLE `task_attachments` (
-  `id` int(11) NOT NULL,
-  `task_id` int(11) DEFAULT NULL,
-  `path` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `task_attachments`
---
-
-INSERT INTO `task_attachments` (`id`, `task_id`, `path`) VALUES
-(5, 5, 'omer-tunc-4.jpg'),
-(6, 5, 'omer-tunc-5.jpg'),
-(7, 5, 'сделано-в-ссср-png-3.png');
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `task_comments`
---
-
-CREATE TABLE `task_comments` (
-  `id` int(11) NOT NULL,
-  `task_id` int(11) DEFAULT NULL,
-  `creator_id` int(11) DEFAULT NULL,
-  `comment` text,
-  `created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `task_comments`
---
-
-INSERT INTO `task_comments` (`id`, `task_id`, `creator_id`, `comment`, `created`, `modified`) VALUES
-(1, 5, 1, '\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum quam risus, vehicula in porta a, dictum vel ipsum. Vivamus pretium eros elit, egestas viverra tortor aliquet et. Etiam euismod ullamcorper lacus et malesuada. Duis orci erat posuere.', '2019-05-24 21:45:18', NULL),
-(2, 5, 1, '\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum quam risus, vehicula in porta a, dictum vel ipsum. Vivamus pretium eros elit, egestas viverra tortor aliquet et. Etiam euismod ullamcorper lacus et malesuada. Duis orci erat posuere.', '2019-05-24 21:47:54', NULL);
 
 -- --------------------------------------------------------
 
@@ -194,21 +148,6 @@ ALTER TABLE `task`
   ADD KEY `fk_task_statuses` (`status_id`);
 
 --
--- Индексы таблицы `task_attachments`
---
-ALTER TABLE `task_attachments`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_attachments_tasks` (`task_id`);
-
---
--- Индексы таблицы `task_comments`
---
-ALTER TABLE `task_comments`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_comments_tasks` (`task_id`),
-  ADD KEY `fk_comments_users` (`creator_id`);
-
---
 -- Индексы таблицы `task_statuses`
 --
 ALTER TABLE `task_statuses`
@@ -231,18 +170,6 @@ ALTER TABLE `task`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
--- AUTO_INCREMENT для таблицы `task_attachments`
---
-ALTER TABLE `task_attachments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT для таблицы `task_comments`
---
-ALTER TABLE `task_comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT для таблицы `task_statuses`
 --
 ALTER TABLE `task_statuses`
@@ -263,19 +190,6 @@ ALTER TABLE `users`
 --
 ALTER TABLE `task`
   ADD CONSTRAINT `fk_task_statuses` FOREIGN KEY (`status_id`) REFERENCES `task_statuses` (`id`);
-
---
--- Ограничения внешнего ключа таблицы `task_attachments`
---
-ALTER TABLE `task_attachments`
-  ADD CONSTRAINT `fk_attachments_tasks` FOREIGN KEY (`task_id`) REFERENCES `task` (`id`);
-
---
--- Ограничения внешнего ключа таблицы `task_comments`
---
-ALTER TABLE `task_comments`
-  ADD CONSTRAINT `fk_comments_tasks` FOREIGN KEY (`task_id`) REFERENCES `task` (`id`),
-  ADD CONSTRAINT `fk_comments_users` FOREIGN KEY (`creator_id`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

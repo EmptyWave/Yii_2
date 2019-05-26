@@ -13,6 +13,7 @@ $config = [
     '@npm' => '@vendor/npm-asset',
     '@img' => '@app/web/img'
   ],
+  'language' => 'en',
   'components' => [
     'i18n' => [
       'translations' => [
@@ -57,13 +58,19 @@ $config = [
     ],
     'db' => $db,
 
-    /*'urlManager' => [
-        'enablePrettyUrl' => true,
-        'showScriptName' => false,
-        'rules' => [
-
-        ],
-    ],*/
+    'urlManager' => [
+      'enablePrettyUrl' => true,
+      'showScriptName' => false,
+      //'enableStrictParsing' => true,
+      'rules' => [
+        '' => 'site/index',
+        'create' => 'task/create',
+        'active' => 'task/active',
+        'task/<id>' => 'task/view',
+        'task/<id>/edit' => 'task/edit',
+        'task/<id>/delete' => 'task/delete',
+      ],
+    ],
 
   ],
   'params' => $params,

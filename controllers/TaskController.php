@@ -91,8 +91,9 @@ class TaskController extends Controller
   public function actionCreate()
   {
     $model = new Task();
+    $post = Yii::$app->request->post();
 
-    if ($model->load(Yii::$app->request->post()) && $model->save()) {
+    if ($model->load($post) && $model->save()) {
       return $this->redirect(['view', 'id' => $model->id]);
     }
 
@@ -109,11 +110,15 @@ class TaskController extends Controller
   public function actionEdit($id)
   {
     $model = $this->findModel($id);
+    $post = Yii::$app->request->post();
 
-    if ($model->load(Yii::$app->request->post()) && $model->save()) {
-      \Yii::$app->session->setFlash('success', "Changes saved");
-      return $this->redirect(['view', 'id' => $model->id]);
+    if ($post){
+      if ($model->load($post) && $model->save()) {
+        \Yii::$app->session->setFlash('success', "Changes saved");
+        return $this->redirect(['view', 'id' => $model->id]);
+      }
     }
+
 
     $usersList = USers::getUsersList();
     $statusList = TaskStatuses::getStatusList();

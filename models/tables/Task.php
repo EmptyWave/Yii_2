@@ -2,7 +2,6 @@
 
 namespace app\models\tables;
 
-use app\controllers\TaskController;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
@@ -137,4 +136,11 @@ class Task extends \yii\db\ActiveRecord
             ],
         ];
     }
+
+  public static function getTaskDeadline24(){
+    return static::find()
+      ->where('DATEDIFF(NOW(), task.deadline)<=1')
+      ->andWhere('DATEDIFF(NOW(), task.deadline)>=0')
+      ->all();
+  }
 }
