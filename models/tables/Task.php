@@ -2,6 +2,7 @@
 
 namespace app\models\tables;
 
+use app\controllers\TaskController;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
@@ -20,6 +21,8 @@ use yii\db\Expression;
  * @property string $modified
  *
  * @property TaskStatuses $status
+ * @property TaskAttachments $TaskAttachments
+ * @property TaskComments $TaskComments
  */
 class Task extends \yii\db\ActiveRecord
 {
@@ -53,14 +56,14 @@ class Task extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'description' => 'Description',
-            'creator_id' => 'Creator ID',
-            'responsible_id' => 'Responsible ID',
-            'deadline' => 'Deadline',
-            'status_id' => 'Status ID',
-            'created' => 'Created',
-            'modified' => 'Modified',
+            'name' => Yii::t('app','task_name'),
+            'description' => Yii::t('app','description'),
+            'creator_id' => Yii::t('app','creator'),
+            'responsible_id' => Yii::t('app','responsible'),
+            'deadline' => Yii::t('app','deadline'),
+            'status_id' => Yii::t('app','status'),
+            'created' => Yii::t('app','created'),
+            'modified' => Yii::t('app','modified'),
         ];
     }
 
@@ -69,7 +72,7 @@ class Task extends \yii\db\ActiveRecord
      */
     public function getStatus()
     {
-        return $this->hasOne(TaskStatuses::className(), ['id' => 'status_id']);
+        return $this->hasOne(TaskStatuses::class, ['id' => 'status_id']);
     }
 
     public function getCreator()
@@ -90,6 +93,15 @@ class Task extends \yii\db\ActiveRecord
     public function getModifiedDate()
     {
         return  date('d-m-Y', strtotime($this->modified));
+    }
+
+    public function getTaskAttachments()
+    {
+      return $this->hasMany(TaskAttachments::class,['task_id' => 'id']);
+    }
+    public function getTaskComments()
+    {
+      return $this->hasMany(TaskComments::class,['task_id' => 'id']);
     }
 
     public static function getCreateMonthList()

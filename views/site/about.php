@@ -4,7 +4,7 @@
 
 use yii\helpers\Html;
 
-$this->title = 'About';
+$this->title = Yii::t('app','title_about');
 $this->params['breadcrumbs'][] = $this->title;
 
 $key = $this->title;

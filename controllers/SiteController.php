@@ -18,89 +18,95 @@ use yii\helpers\ArrayHelper;
 class SiteController extends Controller
 {
 
-    public function actions()
-    {
-        return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-            ],
-        ];
+  public function actions()
+  {
+    return [
+      'error' => [
+        'class' => 'yii\web\ErrorAction',
+      ],
+      'captcha' => [
+        'class' => 'yii\captcha\CaptchaAction',
+        'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+      ],
+    ];
+  }
+
+  public function actionIndex()
+  {
+    $searchModel = new TasksFilter();
+    $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+    $monthList = Task::getCreateMonthList();
+
+    return $this->render('index', [
+      'searchModel' => $searchModel,
+      'dataProvider' => $dataProvider,
+      'monthList' => $monthList,
+    ]);
+  }
+
+  public function actionLogin()
+  {
+    if (!Yii::$app->user->isGuest) {
+      return $this->goHome();
     }
 
-    public function actionIndex()
-    {
-        $searchModel = new TasksFilter();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        $monthList = Task::getCreateMonthList();
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'monthList' => $monthList,
-        ]);
+    $model = new LoginForm();
+    if ($model->load(Yii::$app->request->post()) && $model->login()) {
+      return $this->goBack();
     }
 
-    public function actionLogin()
-    {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
+    $model->password = '';
+    return $this->render('login', [
+      'model' => $model,
+    ]);
+  }
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
-
-        $model->password = '';
-        return $this->render('login', [
-            'model' => $model,
-        ]);
+  public function actionRegistration()
+  {
+    if (!Yii::$app->user->isGuest) {
+      return $this->goHome();
     }
 
-    public function actionRegistration()
-    {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
-        $model = new RegistrationForm();
-        $newData = Yii::$app->request->post();
-        if ($model->load($newData) && $model->registration($newData)) {
-            return $this->redirect(Url::to(['site/login']));
-        }
-
-        return $this->render('registration', [
-            'model' => $model,
-        ]);
+    $model = new RegistrationForm();
+    $newData = Yii::$app->request->post();
+    if ($model->load($newData) && $model->registration($newData)) {
+      return $this->redirect(Url::to(['site/login']));
     }
 
-    public function actionLogout()
-    {
-        Yii::$app->user->logout();
+    return $this->render('registration', [
+      'model' => $model,
+    ]);
+  }
 
-        return $this->goHome();
+  public function actionLogout()
+  {
+    Yii::$app->user->logout();
+
+    return $this->goHome();
+  }
+
+  public function actionContact()
+  {
+    $model = new ContactForm();
+    if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
+      Yii::$app->session->setFlash('contactFormSubmitted');
+
+      return $this->refresh();
     }
+    return $this->render('contact', [
+      'model' => $model,
+    ]);
+  }
 
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
+  public function actionAbout()
+  {
+    return $this->render('about');
+  }
 
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
-
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
+  public function actionLang($lang)
+  {
+    Yii::$app->session->set('lang', $lang);
+    $this->redirect(Yii::$app->request->referrer);
+  }
 }

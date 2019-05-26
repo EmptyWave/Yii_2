@@ -10,19 +10,19 @@ use app\models\tables\Users;
   <div class="task-view <?=$link?'task-view__hover':''?>">
     <div class="task-view__row">
       <h4><?= $model->name?></h4>
-      <p><?= 'Status: '.$model->status->title?></p>
+      <p><?= Yii::t('app','status').': '.$model->status->title?></p>
     </div>
     <div class="task-view__row">
       <div class="task-view__party">
-        <p><?= 'Creator: '.$model->creator->username?></p>
-        <p><?= 'Responsible: '.$model->responsible->username?></p>
+        <p><?= Yii::t('app','creator').': '.$model->creator->username?></p>
+        <p><?= Yii::t('app','responsible').': '.$model->responsible->username?></p>
       </div>
-      <p><?= 'Deadline: '.$model->deadline?></p>
+      <p><?= Yii::t('app','deadline').': '.$model->deadline?></p>
     </div>
-    <p class="<?= $link?'task-view__description__cut':'' ?>"><?= 'Description: '.$model->description?></p>
+    <p class="<?= $link?'task-view__description__cut':'' ?>"><?= Yii::t('app','description').': '.$model->description?></p>
       <div class="task-view__row">
-          <p><?= 'Created: '.$model->createdDate?></p>
-          <p><?= 'Modified: '.$model->modified?></p>
+          <p><?= Yii::t('app','created').': '.$model->createdDate?></p>
+          <p><?= Yii::t('app','modified').': '.$model->modified?></p>
       </div>
   </div>
 </a>

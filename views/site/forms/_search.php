@@ -27,8 +27,7 @@ use yii\bootstrap\ActiveForm;
   <div class="col-sm-1"></div>
   <?= $form
     ->field($model, 'responsible_id', ['inputOptions' => ['placeholder' => 'User ID - временно',]])
-    ->textInput()
-    ->label('Responsible') ?>
+    ->textInput() ?>
 
   <?= $form->field($model, 'created')
     ->dropDownList($monthList, [
@@ -36,11 +35,11 @@ use yii\bootstrap\ActiveForm;
       'prompt' => 'Select month'
     ]) ?>
 
-  <div class="col-sm-2">
+  <div class="col-sm-3">
     <div class="form-group">
       <div class="col-md-12">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Reset', ['site/index'], ['class' => 'btn btn-default']) ?>
+        <?= Html::submitButton(Yii::t('app','search'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('app','reset'), ['site/index'], ['class' => 'btn btn-default']) ?>
       </div>
     </div>
   </div>

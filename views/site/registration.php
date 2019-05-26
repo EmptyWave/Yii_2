@@ -7,7 +7,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Registration';
+$this->title = Yii::t('app','title_registration');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

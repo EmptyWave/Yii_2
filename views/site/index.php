@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Task+';
+$this->title = Yii::t('app','title_main');
 ?>
 
 <?= $this->render('forms\_search',[

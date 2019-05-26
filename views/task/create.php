@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 
-$this->title = 'Create Task';
+$this->title = Yii::t('app','title_create_task');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="task-create">
