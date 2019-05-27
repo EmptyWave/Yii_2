@@ -10,8 +10,12 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use app\assets\TaskAsset;
 
 AppAsset::register($this);
+TaskAsset::register($this);
+
+$TaskCreate = Yii::$app->user->can('TaskCreate');
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -40,7 +44,7 @@ AppAsset::register($this);
     'options' => ['class' => 'navbar-nav navbar-right'],
     'items' => [
       ['label' => Yii::t('app','home'), 'url' => ['/site/index']],
-      ['label' => Yii::t('app','create_task'), 'url' => ['/task/create']],
+      Yii::$app->user->can('TaskCreate')?['label' => Yii::t('app','create_task'), 'url' => ['/task/create']]:'',
       ['label' => Yii::t('app','active'), 'url' => ['/task/active']],
       ['label' => Yii::t('app','about'), 'url' => ['/site/about']],
       Yii::$app->user->isGuest ? (

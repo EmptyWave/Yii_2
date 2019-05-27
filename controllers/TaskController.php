@@ -13,9 +13,9 @@ use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
+use yii\web\UploadedFile;
 use yii\web\Response;
 use Yii;
-use yii\web\UploadedFile;
 
 
 class TaskController extends Controller
@@ -24,18 +24,17 @@ class TaskController extends Controller
   {
     return [
       'access' => [
-        'class' => AccessControl::className(),
-        'only' => ['logout'],
+        'class' => AccessControl::class,
         'rules' => [
           [
-            'actions' => ['logout'],
+            //'actions' => ['view'],
             'allow' => true,
             'roles' => ['@'],
           ],
         ],
       ],
       'verbs' => [
-        'class' => VerbFilter::className(),
+        'class' => VerbFilter::class,
         'actions' => [
           'logout' => ['post'],
         ],

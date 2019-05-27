@@ -3,6 +3,8 @@
 namespace app\models\tables;
 
 use Yii;
+use yii\db\ActiveRecord;
+use yii\web\IdentityInterface;
 
 /**
  * This is the model class for table "users".
@@ -16,7 +18,7 @@ use Yii;
  * @property string $phone
  * @property int $userType_id
  */
-class Users extends \yii\db\ActiveRecord
+class Users extends ActiveRecord
 {
     /**
      * {@inheritdoc}

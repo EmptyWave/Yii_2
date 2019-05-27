@@ -5,6 +5,8 @@ use yii\bootstrap\ActiveForm;
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = $this->title;
+$TaskEdit=Yii::$app->user->can('TaskEdit');
+$TaskDelete=Yii::$app->user->can('TaskDelete');
 ?>
 
 <div class="task-container">
@@ -15,18 +17,21 @@ $this->params['breadcrumbs'][] = $this->title;
 ]); ?>
 
   <div class="task-btn-box">
-    <?= Yii::$app->user->isGuest ? '' : Html::a(Yii::t('app','edit_task'), ['edit', 'id' => $model->id], [
-        'class' => 'btn btn-primary task-btn'
-    ]) ?>
-    <?= Yii::$app->user->isGuest ? '' : Html::a(Yii::t('app','delete_task'), ['delete', 'id' => $model->id], [
+    <?= Yii::$app->user->can('TaskEdit') ? Html::a(Yii::t('app','edit_task'), ['edit', 'id' => $model->id], [
+      'class' => 'btn btn-primary task-btn'
+    ]) : '' ?>
+    <?= Yii::$app->user->can('TaskDelete') ? Html::a(Yii::t('app','delete_task'), ['delete', 'id' => $model->id], [
       'class' => 'btn btn-danger task-btn',
       'data' => [
         'confirm' => 'Are you sure you want to delete this item?',
         'method' => 'post',
       ],
-    ]) ?>
+    ]) : '' ?>
   </div>
 </div>
+
+
+
 
 <div class="task-attachments-container">
   <div class="task-attachments-list">

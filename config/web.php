@@ -11,10 +11,18 @@ $config = [
   'aliases' => [
     '@bower' => '@vendor/bower-asset',
     '@npm' => '@vendor/npm-asset',
+    '@mdm/admin' => '@vendor/mdm/yii2-admin',
     '@img' => '@app/web/img'
   ],
   'language' => 'en',
   'components' => [
+    'user' => [
+      'identityClass' => 'app\models\User',
+      'loginUrl' => ['/site/login'],
+    ],
+    'authManager' => [
+      'class' => \yii\rbac\DbManager::class,
+    ],
     'i18n' => [
       'translations' => [
         'app*' => [
@@ -33,10 +41,10 @@ $config = [
     'cache' => [
       'class' => 'yii\caching\FileCache',
     ],
-    'user' => [
+    /*'user' => [
       'identityClass' => 'app\models\User',
       'enableAutoLogin' => true,
-    ],
+    ],*/
     'errorHandler' => [
       'errorAction' => 'site/error',
     ],
@@ -74,6 +82,40 @@ $config = [
 
   ],
   'params' => $params,
+
+  'modules' => [
+    'admin' => [
+      'class' => 'mdm\admin\Module',
+      'layout' => 'left-menu',
+      'mainLayout' => '@app/views/layouts/main.php',
+      'controllerMap' => [
+        'assignment' => [
+          'class' => 'mdm\admin\controllers\AssignmentController',
+          'userClassName' => 'app\models\tables\Users',
+          'idField' => 'user_id',
+          //'searchClass' => 'app\models\filters\UsersFilter'
+        ],
+        /*'other' => [
+          'class' => 'path\to\OtherController', // add another controller
+        ],*/
+      ],
+      'menus' => [
+        'assignment' => [
+          'label' => 'Grand Access'
+        ],
+        'route' => null, // disable menu route
+      ]
+    ],
+  ],
+
+  'as access' => [
+    'class' => 'mdm\admin\components\AccessControl',
+    'allowActions' => [
+      'site/*',
+      'admin/*',
+      'task/*',
+    ]
+  ],
 ];
 
 if (YII_ENV_DEV) {

@@ -2,21 +2,53 @@
 
 namespace app\controllers;
 
-use app\models\RegistrationForm;
 use Yii;
 use yii\data\ActiveDataProvider;
-use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Response;
-use yii\filters\VerbFilter;
+use app\models\RegistrationForm;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\tables\Task;
 use app\models\filters\TasksFilter;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
+use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 
 class SiteController extends Controller
 {
+  public function behaviors()
+  {
+    return [
+      'access' => [
+        'class' => AccessControl::class,
+        'rules' => [
+          [
+            'actions' => ['index','logout'],
+            'allow' => true,
+            'roles' => ['@'],
+          ],
+          [
+            'actions' => ['login','registration'],
+            'allow' => true,
+            'roles' => ['?'],
+          ],
+          [
+            'actions' => ['about','lang'],
+            'allow' => true,
+            'roles' => ['@','?'],
+          ],
+        ],
+      ],
+      'verbs' => [
+        'class' => VerbFilter::class,
+        'actions' => [
+          'logout' => ['post'],
+        ],
+      ],
+    ];
+  }
 
   public function actions()
   {
